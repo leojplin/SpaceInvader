@@ -6,16 +6,18 @@ public class midLevel extends Aliens{
 	private int x;
 	private int y;
 	private int size;
+	private boolean state;
 	
 	public midLevel(int x_axis, int y_axis){
 		points = 100;
 		x = x_axis;
 		y = y_axis;
 		size = 25;
+		state = true;
 	}
 	
 	public void update(int keyDown, int keyUp){
-		moveAlien(getState());
+		moveAlien(state);
 		speedAlien();
 	}
 	

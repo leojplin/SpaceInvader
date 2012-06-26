@@ -7,17 +7,19 @@ public class lowLevel extends Aliens{
 	private int x;
 	private int y;
 	private int size;
+	private boolean state;
 	
 	public lowLevel(int x_axis, int y_axis){
 		points = 50;
 		x = x_axis;
 		y = y_axis;
 		size = 25;
+		state = true;
 	}
 	
 	@Override
 	public void update(int keyDown, int keyUp){
-		moveAlien(getState());
+		moveAlien(state);
 		speedAlien();
 	}
 	
