@@ -1,6 +1,6 @@
 import java.applet.Applet;
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,28 +10,87 @@ import java.awt.event.KeyListener;
 public class Game extends Applet implements Runnable, KeyListener
 
 {
-	Image dbImage;
-	Graphics dbGraphics;
-	GameRunner gr;
-	int width;
-	int height;
-	boolean keyLeft = false;
-	boolean keyRight = false;
-	int keyDown;
-	int keyUp;
+
+	lowLevel[] lowLevels = new lowLevel[10];
+	midLevel[] midLevels = new midLevel[10];
+	highLevel[] highLevels = new highLevel[5];
+	specialAlien spec;
+	private Image i;
+	private Graphics doubleG;
+	Ship ship;
+	AlienBullet ab;
 	
+	
+	public void init()
+	{
+		addKeyListener(this);
+		setSize(800, 600);
+		setBackground(Color.LIGHT_GRAY);
+	}
+	
+	public void start()
+	{
+		spec = new specialAlien(0,0);
+		int x = 0;
+		int y = 50;
+		for(int h = 0; h < highLevels.length; h ++){
+			highLevels[h] = new highLevel(x,y);
+			x += 50;
+			if(x >= 250){
+				x = 0;
+				y += 50;
+			}
+		}
+		for(int j = 0; j < midLevels.length; j ++){
+			midLevels[j] = new midLevel(x, y);
+			x += 50;
+			if(x >= 250){
+				x = 0;
+				y += 50;
+			}
+		}
+		for(int i = 0; i < lowLevels.length; i ++){
+			lowLevels[i] = new lowLevel(x,y);
+			x += 50;
+			if(x >= 250){
+				x = 0;
+				y += 50;
+			}
+		}
+		ab = new AlienBullet(200,570);
+		ship = new Ship();
+		Thread t = new Thread(this);
+		t.start();
+	}
 	
 	public void run()
 	{
 		while(true)
 		{
-			
-			for(GameComponent gc : GameComponent.componentList)
+			if (ship != null)
 			{
-				gc.update(keyDown,keyUp);
+				if (ship.isShipDead)
+				{
+					ship = null;
+				}
 			}
-			keyDown = 0;
-			keyUp = 0;
+			if (ship != null)
+			{
+			ship.update(ab);
+			}
+			for(int i = 0; i < lowLevels.length; i ++)
+			{
+				lowLevels[i].update();
+			}
+			for(int i = 0; i < midLevels.length; i ++)
+			{
+				midLevels[i].update();
+			}
+			for(int i = 0; i < highLevels.length; i ++)
+			{
+				highLevels[i].update();
+			}
+			spec.update();
 			repaint();
 			
 			try
@@ -43,54 +102,95 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 	}
 	
-	public void init()
+	@Override
+	public void stop() 
 	{
-		addKeyListener(this);
-		width = 800;
-		height = 600;
-		keyDown = 0;
-		keyUp = 0;
-		gr = new GameRunner();
-		this.setSize(width, height);
-		dbImage = createImage(this.getWidth(), this.getHeight());
-		dbGraphics = dbImage.getGraphics();
-		Thread t = new Thread(this);
-		t.start();
+		
 	}
 	
-	
-	public void update(Graphics g)
+	@Override
+	public void destroy()
 	{
-		paint(g);
+		
 	}
 	
-	public void paint(Graphics g)
+	public void update(Graphics g) //Double buffering. Prevents flickering.
 	{
-		dbGraphics.clearRect(0, 0, this.getWidth(), this.getHeight());
-		
-		
-		for(GameComponent gc : GameComponent.componentList)
+		if (i == null)
 		{
-			gc.draw(dbGraphics);
+			i = createImage(this.getSize().width, this.getSize().height);
+			doubleG = i.getGraphics();
 		}
-		
-		g.drawImage(dbImage, 0, 0, this);
+		doubleG.setColor(getBackground());
+		doubleG.fillRect(0, 0, this.getSize().width, this.getSize().height);
+		doubleG.setColor(getForeground());
+		paint(doubleG);
+		g.drawImage(i, 0, 0, this);
+	}
+	
+	@Override
+	public void paint(Graphics g) //Paints the graphic.
+	{
+		if (ship != null)
+		{
+		ship.paint(g);
+		}
+		ab.paint(g);
+		for(int i = 0; i < lowLevels.length; i ++)
+		{
+			lowLevels[i].paint(g);
+		}
+		for(int i = 0; i < midLevels.length; i ++)
+		{
+			midLevels[i].paint(g);
+		}
+		for(int i = 0; i < highLevels.length; i ++)
+		{
+			highLevels[i].paint(g);
+		}
+		spec.paint(g);
+
 	}
 
 	
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
-
-		keyDown = e.getKeyCode();
+		if (ship != null)
+		{
+			if (e.getKeyCode() == KeyEvent.VK_LEFT)
+			{
+				ship.keyLeftPressed = true;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+			{
+				ship.keyRightPressed = true;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_SPACE)
+			{
+				ship.spacebarPressed = true;
+			}
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
-	{
-		keyUp = e.getKeyCode();
-		
-
+	{		
+		if (ship != null)
+		{
+			if (e.getKeyCode() == KeyEvent.VK_LEFT)
+			{
+				ship.keyLeftPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+			{
+			ship.keyRightPressed = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_SPACE)
+			{
+				ship.spacebarPressed = false;
+			}
+		}
 	}
 
 	@Override

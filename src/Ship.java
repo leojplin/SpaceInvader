@@ -1,23 +1,26 @@
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 
 
-public class Ship extends GameComponent
+public class Ship
 {
-	private int[] xPoints = {400, 390, 410};
-	private int[] yPoints = {555, 580, 580};
-	boolean keyLeft = false;
-	boolean keyRight = false;
-	final int lateralSpeed = 1;
+	int[] xPoints = {400, 390, 410};
+	int[] yPoints = {555, 580, 580};
+	final int lateralSpeed = 25;
+	boolean keyLeftPressed = false;
+	boolean keyRightPressed = false;
+	boolean spacebarPressed = false;
+	boolean isShipDead = false;
+	ShipBullet sb;
 	
-	public Ship() {
-		// TODO Auto-generated constructor stub
+	public Ship() 
+	{
+		
 	}
 	
 	public void moveLeft()
 	{
-		if (xPoints[1] + lateralSpeed < 0)
+		if (xPoints[1] - lateralSpeed < 0)
 		{
 			xPoints[0] = 10;
 			xPoints[1] = 0;
@@ -33,11 +36,11 @@ public class Ship extends GameComponent
 	
 	public void moveRight()
 	{
-		if (xPoints[2] + lateralSpeed > 600)
+		if (xPoints[2] + lateralSpeed > 800)
 		{
-			xPoints[0] = 590;
-			xPoints[1] = 580;
-			xPoints[2] = 600;
+			xPoints[0] = 790;
+			xPoints[1] = 780;
+			xPoints[2] = 800;
 		}
 		else
 		{
@@ -47,34 +50,57 @@ public class Ship extends GameComponent
 		}
 	}
 	
-//	public void killedByAlien(AlienBullet alienbullet)
-//	{
-//		if (alienbullet.x <= xPoints[2] && alienbullet.x >= xPoints[1])
-//		{
-//			if (alienbullet.y <= yPoints[2] && alienbullet.y >= yPoints[1])
-//			{
-//				//method to destroy ship
-//				//method to lose one life
-//			}
-//		}
-//	}
-//	
-	public void update(int keyDown, int keyUp)
+	public void fireShipBullet()
 	{
-		switch(keyDown){
-		case KeyEvent.VK_LEFT:
-			moveLeft();
-			break;
-		case KeyEvent.VK_RIGHT:
-			moveRight();
-			break;
+		if (spacebarPressed)
+		{
+			sb = new ShipBullet(xPoints[0], yPoints[0]);
 		}
-//		killedByAlien();
-		System.out.println("keyLeft is:" + keyLeft + "; keyRight is:" + keyRight);
 	}
 	
-	public void draw(Graphics g)
+	public void shotByAlien(AlienBullet ab)
 	{
+		if (ab.xPoints[0] >= xPoints[1] && ab.xPoints[0] <= xPoints[2] || ab.xPoints[2] >= xPoints[1] && ab.xPoints[2] <= xPoints[2])
+		{
+			if (ab.yPoints[0] >= yPoints[0] && ab.yPoints[0] <= yPoints[1] || ab.yPoints[1] >= yPoints[0] && ab.yPoints[1] <= yPoints[1])
+			{
+				isShipDead = true; //method to destroy
+				//method to lose one life
+			}
+		}
+	}
+	
+	public void update(AlienBullet ab)
+	{
+		if (keyLeftPressed)
+		{
+			moveLeft();
+		}
+		if (keyRightPressed)
+		{
+			moveRight();
+		}
+		if (spacebarPressed)
+		{
+			fireShipBullet();
+		}
+		if (sb != null)
+		{
+			sb.update();
+		}
+		
+		if (ab != null)
+		{
+		shotByAlien(ab);
+		}
+	}
+	
+	public void paint(Graphics g)
+	{
+		if (sb !=null)
+		{
+			sb.paint(g);
+		}
 		g.setColor(Color.RED);
 		g.fillPolygon(xPoints, yPoints, 3);
 	}

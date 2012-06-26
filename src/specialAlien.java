@@ -31,10 +31,10 @@ public class specialAlien extends Aliens{
 			state = true;
 		}
 	}
-	public void update(int keyDown, int keyUp){
+	public void update(){
 		moveAlien();
 	}
-	public void draw(Graphics g){
+	public void paint(Graphics g){
 		g.setColor(Color.BLACK);
 		g.fillRect((int) x, (int) y, (int) size, (int) size);
 	}
