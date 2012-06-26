@@ -25,7 +25,7 @@ public class Aliens{
 			x_pos += x_vel;
 		}
 		if(toRight < 1){
-			x_pos += x_vel;
+			x_pos -= x_vel;
 		}
 		double[] data = {x_pos, y_pos, toRight};
 		return data;
