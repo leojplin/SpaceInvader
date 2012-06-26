@@ -9,7 +9,7 @@ public class Ship extends GameComponent
 	private int[] yPoints = {555, 580, 580};
 	private boolean keyLeft = false;
 	private boolean keyRight = false;
-	final int lateralSpeed = 1;
+	final int lateralSpeed = 10;
 	
 	public Ship() {
 		// TODO Auto-generated constructor stub
