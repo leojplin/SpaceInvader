@@ -1,7 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class midLevel extends Aliens{
+public class highLevel extends Aliens{
 	private int points;
 	private double x;
 	private double y;
@@ -9,7 +9,7 @@ public class midLevel extends Aliens{
 	private boolean state;
 	private double dx;
 	
-	public midLevel(int x_axis, int y_axis){
+	public highLevel(int x_axis, int y_axis){
 		points = 100;
 		x = x_axis;
 		y = y_axis;
@@ -45,11 +45,8 @@ public class midLevel extends Aliens{
 	}
 	
 	public void draw(Graphics g){
-		g.setColor(Color.GREEN);
+		g.setColor(Color.ORANGE);
 		g.fillRect((int)x, (int)y, (int)size, (int)size);
 	}
-	
-	
-	
-	
 }
+	

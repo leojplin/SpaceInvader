@@ -1,14 +1,15 @@
 import java.awt.Graphics;
 import java.awt.Color;
+import java.util.Random;
 
 public class lowLevel extends Aliens{
 	
 	private int points;
-	private int x;
-	private int y;
-	private int size;
+	private double x;
+	private double y;
+	private double size;
 	private boolean state;
-	private int dx;
+	private double dx;
 	
 	public lowLevel(int x_axis, int y_axis){
 		points = 50;
@@ -16,7 +17,7 @@ public class lowLevel extends Aliens{
 		y = y_axis;
 		size = 25;
 		state = true;
-		dx = 1;
+		dx = 1.0;
 	}
 	
 	public void moveAlien(boolean bool){
@@ -37,17 +38,19 @@ public class lowLevel extends Aliens{
 	}
 	
 	public void speedAlien(){
-		dx = (int) Math.pow(1.05, y / size);
+		dx = Math.pow(1.0005, y / size);
+	}
+	public void checkDeath(){
+		if()
 	}
 	
-	@Override
-	public void update(int keyDown, int keyUp){
+	public void update(int KeyDown, int KeyUp){
 		moveAlien(state);
 		speedAlien();
 	}
 	
 	public void draw(Graphics g){
 		g.setColor(Color.BLUE);
-		g.fillRect(x, y, size, size);
+		g.fillRect((int)x, (int)y, (int)size, (int)size);
 	}
 }

@@ -1,41 +1,23 @@
-import java.awt.Color;
 import java.awt.Graphics;
 
-
-//TOMATOES ARE TOTALITARIAN NECROPHILIACS THAT FEAST ON THE BLOOD OF THE YOUTH.
-
 public class Aliens extends GameComponent{
-
+	
+	private int points;
 	private int x;
 	private int y;
-	private int size = 25;
-	private int[] where = {x, y};
-	private int dx = 1;
-	private boolean state = true;
+	private int size;
+	private boolean state;
+	private int dx;
 	
 	public Aliens(){
 		
 	}
 	
-	//public void killByUser(Bullet bullet){
-		//if(bullet.x == this.x && bullet.y == this.y){
-		//	
-		//}
-	//}
-	
-	public boolean getState(){
-		return state;
-	}
-	
-	public int getSize(){
-		return size;
+	public void update(int KeyDown, int keyUp){
+		
 	}
 	
 	public void draw(Graphics g){
-
-	}
-	
-	public void update(int keyUp, int KeyDown){
 		
 	}
 }
