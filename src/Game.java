@@ -19,6 +19,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	private Graphics doubleG;
 	Ship ship;
 	AlienBullet ab;
+	ShipBullet sb;
 	
 	
 	public void init()
@@ -80,15 +81,15 @@ public class Game extends Applet implements Runnable, KeyListener
 			}
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
-				lowLevels[i].update();
+				lowLevels[i].update(sb);
 			}
 			for(int i = 0; i < midLevels.length; i ++)
 			{
-				midLevels[i].update();
+				midLevels[i].update(sb);
 			}
 			for(int i = 0; i < highLevels.length; i ++)
 			{
-				highLevels[i].update();
+				highLevels[i].update(sb);
 			}
 			spec.update();
 			repaint();

@@ -24,12 +24,10 @@ public class lowLevel extends Aliens{
 	
 	
 	public void goBoom(ShipBullet bullet){
-		for(int i : bullet.xPoints){
-			if(i >= x && i <= x + size){
-				for(int j : bullet.yPoints){
-					if(j == y){
-						isDead = true;
-					}
+		for(int i = 0; i < bullet.xPoints.length; i ++){
+			if(bullet.xPoints[i] <= x + size && bullet.xPoints[i] >= x){
+				if(bullet.yPoints[i] <= y && bullet.yPoints[i] >= y + size){
+					isDead = true;
 				}
 			}
 		}
@@ -41,13 +39,16 @@ public class lowLevel extends Aliens{
 	}
 
 	
-	public void update(){
+	public void update(ShipBullet bullet){
 		double[] data = moveAlien(x,y,size,state,dx);
 		x = data[0];
 		y = data[1];
 		state = data[2];
 		speedAlien();
-		
+		goBoom(bullet);
+		if(isDead){
+			dx = 0;
+		}
 	}
 	
 	public void paint(Graphics g){

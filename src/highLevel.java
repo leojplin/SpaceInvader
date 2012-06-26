@@ -35,12 +35,15 @@ public class highLevel extends Aliens{
 		dx = Math.pow(1.0005, y / size);
 	}
 	
-	public void update(){
+	public void update(ShipBullet sb){
 		double[] data = moveAlien(x,y,size,state,dx);
 		x = data[0];
 		y = data[1];
 		state = data[2];
 		speedAlien();
+		if(isDead){
+			dx = 0;
+		}
 	}
 	
 	public void paint(Graphics g){
