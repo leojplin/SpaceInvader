@@ -6,32 +6,28 @@ public class highLevel extends Aliens{
 	private double x;
 	private double y;
 	private double size;
-	private boolean state;
+	private double state;
 	private double dx;
+	private boolean isDead;
 	
 	public highLevel(int x_axis, int y_axis){
 		points = 100;
 		x = x_axis;
 		y = y_axis;
 		size = 25;
-		state = true;
+		state = 1;
 		dx = 1.0;
 	}
 	
-	public void moveAlien(boolean bool){
-		if(x + size >= 800 && state){
-			y += size;
-			state = false;
-		}
-		if(x <= 0 && !(state)){
-			y += size;
-			state = true;
-		}
-		if (!(state)){
-			x -= dx;
-		}
-		if (state){
-			x += dx;
+	public void goBoom(ShipBullet bullet){
+		for(int i : bullet.xPoints){
+			if(i >= x && i <= x + size){
+				for(int j : bullet.yPoints){
+					if(j == y){
+						isDead = true;
+					}
+				}
+			}
 		}
 	}
 	
@@ -40,7 +36,10 @@ public class highLevel extends Aliens{
 	}
 	
 	public void update(){
-		moveAlien(state);
+		double[] data = moveAlien(x,y,size,state,dx);
+		x = data[0];
+		y = data[1];
+		state = data[2];
 		speedAlien();
 	}
 	
