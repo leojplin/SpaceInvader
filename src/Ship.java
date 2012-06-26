@@ -7,9 +7,9 @@ public class Ship extends GameComponent
 {
 	private int[] xPoints = {400, 390, 410};
 	private int[] yPoints = {555, 580, 580};
-	private boolean keyLeft = false;
-	private boolean keyRight = false;
-	final int lateralSpeed = 10;
+	boolean keyLeft = false;
+	boolean keyRight = false;
+	final int lateralSpeed = 1;
 	
 	public Ship() {
 		// TODO Auto-generated constructor stub
@@ -47,24 +47,20 @@ public class Ship extends GameComponent
 		}
 	}
 	
-	public void update(int keyDown, int keyUp)
+//	public void killedByAlien(AlienBullet alienbullet)
+//	{
+//		if (alienbullet.x <= xPoints[2] && alienbullet.x >= xPoints[1])
+//		{
+//			if (alienbullet.y <= yPoints[2] && alienbullet.y >= yPoints[1])
+//			{
+//				//method to destroy ship
+//				//method to lose one life
+//			}
+//		}
+//	}
+//	
+	public void update()
 	{
-		if (keyDown == KeyEvent.VK_LEFT)
-		{
-			keyLeft = true;
-		}
-		if (keyDown == KeyEvent.VK_RIGHT)
-		{
-			keyRight = true;
-		}
-		if (keyUp == KeyEvent.VK_LEFT)
-		{
-			keyLeft = false;
-		}
-		if (keyUp == KeyEvent.VK_RIGHT)
-		{
-			keyRight = false;
-		}
 		if (keyLeft)
 		{
 			moveLeft();
@@ -73,6 +69,7 @@ public class Ship extends GameComponent
 		{
 			moveRight();
 		}
+//		killedByAlien();
 		System.out.println("keyLeft is:" + keyLeft + "; keyRight is:" + keyRight);
 	}
 	

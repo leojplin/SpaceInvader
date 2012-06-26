@@ -15,14 +15,10 @@ public class Game extends Applet implements Runnable, KeyListener
 	GameRunner gr;
 	int width;
 	int height;
-	boolean keyUP = false;
 	boolean keyLeft = false;
 	boolean keyRight = false;
 	
 	
-	
-	int keyDown;
-	int keyUp;
 	public void run()
 	{
 		while(true)
@@ -30,10 +26,8 @@ public class Game extends Applet implements Runnable, KeyListener
 			
 			for(GameComponent gc : GameComponent.componentList)
 			{
-				gc.update(keyDown,keyUp);
+				gc.update();
 			}
-			keyDown = 0;
-			keyUp = 0;
 			repaint();
 			
 			try
@@ -47,8 +41,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	
 	public void init()
 	{
-		keyDown = 0;
-		keyUp = 0;
+		addKeyListener(this);
 		width = 800;
 		height = 600;
 		gr = new GameRunner();
@@ -82,13 +75,29 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
-		keyDown = e.getKeyCode();
+
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keyLeft = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keyRight = true;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		keyUp = e.getKeyCode();
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			keyLeft = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			keyRight = false;
+		}
+
 	}
 
 	@Override

@@ -10,6 +10,6 @@ public abstract class GameComponent
 	public GameComponent(){
 		componentList.add(this);
 	}
-	public abstract void update(int keyDown,int keyUp);
+	public abstract void update();
 	public abstract void draw(Graphics g);
 }
