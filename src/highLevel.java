@@ -8,7 +8,7 @@ public class highLevel extends Aliens{
 	private double size;
 	private double state;
 	public double dx;
-	private boolean isDead;
+	private boolean isDead = false;
 	
 	public highLevel(int x_axis, int y_axis){
 		points = 100;
@@ -23,7 +23,7 @@ public class highLevel extends Aliens{
 		for(int i : bullet.xPoints){
 			if(i >= x && i <= x + size){
 				for(int j : bullet.yPoints){
-					if(j == y){
+					if(j >= y && j <= y + size){
 						isDead = true;
 					}
 				}
@@ -39,6 +39,10 @@ public class highLevel extends Aliens{
 		return dx;
 	}
 	
+	public boolean getLife(){
+		return isDead;
+	}
+	
 	public void update(ShipBullet bullet){
 		double[] data = moveAlien(x,y,size,state,dx);
 		x = data[0];
@@ -46,10 +50,7 @@ public class highLevel extends Aliens{
 		state = data[2];
 		speedAlien();
 		if(bullet != null){
-			goBoom(bullet);
-		}
-		if(isDead){
-			dx = 0;
+			isDead = goBoom(bullet, isDead, x, y, size);
 		}
 	}
 	

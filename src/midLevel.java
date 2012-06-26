@@ -39,6 +39,10 @@ public class midLevel extends Aliens{
 		return dx;
 	}
 	
+	public boolean getLife(){
+		return isDead;
+	}
+	
 	public void update(ShipBullet bullet){
 		double[] data = moveAlien(x,y,size,state,dx);
 		x = data[0];
@@ -46,10 +50,7 @@ public class midLevel extends Aliens{
 		state = data[2];
 		speedAlien();
 		if(bullet != null){
-			goBoom(bullet);
-		}
-		if(isDead){
-			dx = 0;
+			isDead = goBoom(bullet, isDead, x, y, size);
 		}
 	}
 	

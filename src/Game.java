@@ -19,7 +19,6 @@ public class Game extends Applet implements Runnable, KeyListener
 	private Image i;
 	private Graphics doubleG;
 	Ship ship;
-	ShipBullet sb;
 	AlienBullet ab;
 	ShipBullet sb;
 	
@@ -61,8 +60,8 @@ public class Game extends Applet implements Runnable, KeyListener
 			}
 		}
 		ab = new AlienBullet(10,580);
-		sb = new ShipBullet(100,50);
 		ship = new Ship();
+		sb = new ShipBullet(40,580);
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -101,22 +100,38 @@ public class Game extends Applet implements Runnable, KeyListener
 			}
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
-				if(lowLevels[i].getDX() == 0){
-					lowLevels[i] = null;
+				try{
+					if((lowLevels[i].getLife())){
+						lowLevels[i] = null;
+					}
+					else{
+						lowLevels[i].update(sb);
+					}
 				}
-				lowLevels[i].update(sb);
+				catch (NullPointerException pont){
+						continue;
+					
+				}
 			}
 			for(int i = 0; i < midLevels.length; i ++)
 			{
-				if(midLevels[i].getDX() == 0){
-					midLevels[i] = null;
+				try{
+					if((midLevels[i].getLife())){
+						midLevels[i] = null;
+					}
+					else{
+						midLevels[i].update(sb);
+					}
 				}
-				midLevels[i].update(sb);
+				catch (NullPointerException pont){
+						continue;
+					
+				}
 			}
 			for(int i = 0; i < highLevels.length; i ++)
 			{
 				try{
-					if(highLevels[i].getDX() == 0){
+					if((highLevels[i].getLife())){
 						highLevels[i] = null;
 					}
 					else{
@@ -155,13 +170,15 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 	}
 	
-	public void fireShipBullet()
-	{
-			if (!(sb != null))
-			{
-				sb = new ShipBullet(ship.xPoints[0], ship.yPoints[0]);
-			}
-			checkShipBullet();
+	public void fireShipBullet() 
+	{ 
+
+	System. out .println( ship . xPoints [0] + ", " + ship . yPoints [0] + sb ); 
+	if (!( sb != null )) 
+	{ 
+		sb = new ShipBullet( ship . xPoints [0], ship . yPoints [0]); 
+	} 
+	checkShipBullet(); 
 	}
 		
 	public void checkShipBullet()
@@ -203,11 +220,19 @@ public class Game extends Applet implements Runnable, KeyListener
 			ab.paint(g);
 		for(int i = 0; i < lowLevels.length; i ++)
 		{
-			lowLevels[i].paint(g);
+			if(lowLevels[i] != null){
+				lowLevels[i].paint(g);
+			}
+			continue;
+			
 		}
 		for(int i = 0; i < midLevels.length; i ++)
 		{
-			midLevels[i].paint(g);
+			if(midLevels[i] != null){
+				midLevels[i].paint(g);
+			}
+			continue;
+			
 		}
 		for(int i = 0; i < highLevels.length; i ++)
 		{

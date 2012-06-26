@@ -38,8 +38,8 @@ public class lowLevel extends Aliens{
 		dx = Math.pow(1.0005, y / size);
 	}
 	
-	public double getDX(){
-		return dx;
+	public boolean getLife(){
+		return isDead;
 	}
 
 	
@@ -50,10 +50,7 @@ public class lowLevel extends Aliens{
 		state = data[2];
 		speedAlien();
 		if(bullet != null){
-			goBoom(bullet);
-		}
-		if(isDead){
-			dx = 0;
+			isDead = goBoom(bullet, isDead, x, y, size);
 		}
 	}
 	

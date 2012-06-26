@@ -31,6 +31,17 @@ public class Aliens{
 		return data;
 	}
 	
+	public boolean goBoom(ShipBullet bullet, boolean bool, double x, double y, double size){
+		for(int i = 0; i < bullet.xPoints.length; i ++){
+			if(bullet.xPoints[i] <= (x + size) && bullet.xPoints[i] >= x){
+				if(bullet.yPoints[i] <= y + size && bullet.yPoints[i] >= y){
+					bool = true;
+				}
+			}
+		}
+		return bool;
+	}
+	
 	public void update(){
 		
 	}
