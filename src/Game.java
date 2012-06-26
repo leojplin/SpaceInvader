@@ -14,6 +14,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	lowLevel[] lowLevels = new lowLevel[10];
 	midLevel[] midLevels = new midLevel[10];
 	highLevel[] highLevels = new highLevel[5];
+	int lives = 3;
 	specialAlien spec;
 	private Image i;
 	private Graphics doubleG;
@@ -57,7 +58,7 @@ public class Game extends Applet implements Runnable, KeyListener
 				y += 50;
 			}
 		}
-		ab = new AlienBullet(200,570);
+		ab = new AlienBullet(10,580);
 		ship = new Ship();
 		Thread t = new Thread(this);
 		t.start();
@@ -72,6 +73,15 @@ public class Game extends Applet implements Runnable, KeyListener
 				if (ship.isShipDead)
 				{
 					ship = null;
+					if (lives > 1)
+					{
+					lives--;
+					ship = new Ship();
+					}
+					else
+					{
+						System.exit(0);
+					}
 				}
 			}
 			if (ship != null)
