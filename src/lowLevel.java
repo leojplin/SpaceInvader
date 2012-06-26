@@ -37,6 +37,10 @@ public class lowLevel extends Aliens{
 	public void speedAlien(){
 		dx = Math.pow(1.0005, y / size);
 	}
+	
+	public double getDX(){
+		return dx;
+	}
 
 	
 	public void update(ShipBullet bullet){
@@ -45,7 +49,9 @@ public class lowLevel extends Aliens{
 		y = data[1];
 		state = data[2];
 		speedAlien();
-		goBoom(bullet);
+		if(bullet != null){
+			goBoom(bullet);
+		}
 		if(isDead){
 			dx = 0;
 		}
