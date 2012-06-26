@@ -19,6 +19,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	private Image i;
 	private Graphics doubleG;
 	Ship ship;
+	ShipBullet sb;
 	AlienBullet ab;
 	
 	
@@ -84,9 +85,17 @@ public class Game extends Applet implements Runnable, KeyListener
 					}
 				}
 			}
+			if (sb != null)
+			{
+				sb.update();
+			}
 			if (ship != null)
 			{
-			ship.update(ab);
+				ship.update();
+				if (ab != null)
+				{
+					ship.shotByAlien(ab);
+				}
 			}
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
@@ -124,6 +133,26 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 	}
 	
+	public void fireShipBullet()
+	{
+			if (!(sb != null))
+			{
+				sb = new ShipBullet(ship.xPoints[0], ship.yPoints[0]);
+			}
+			checkShipBullet();
+	}
+		
+	public void checkShipBullet()
+	{
+		if (sb !=null)
+		{
+			if (sb.yPoints[1] < 0 )
+			{
+				sb = null;
+			}
+		}
+	}
+	
 	public void update(Graphics g) //Double buffering. Prevents flickering.
 	{
 		if (i == null)
@@ -141,6 +170,10 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void paint(Graphics g) //Paints the graphic.
 	{
+		if (sb !=null)
+		{
+			sb.paint(g);
+		}
 		if (ship != null)
 		{
 		ship.paint(g);

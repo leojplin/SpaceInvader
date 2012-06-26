@@ -11,7 +11,6 @@ public class Ship
 	boolean keyRightPressed = false;
 	boolean spacebarPressed = false;
 	boolean isShipDead = false;
-	ShipBullet sb;
 	
 	public Ship() 
 	{
@@ -50,29 +49,6 @@ public class Ship
 		}
 	}
 	
-	public void fireShipBullet()
-	{
-		if (spacebarPressed)
-		{
-			if (!(sb != null))
-			{
-			sb = new ShipBullet(xPoints[0], yPoints[0]);
-			}
-			checkShipBullet();
-		}
-	}
-	
-	public void checkShipBullet()
-	{
-		if (sb !=null)
-		{
-			if (sb.yPoints[1] < 0 )
-			{
-				sb = null;
-			}
-		}
-	}
-	
 	public void shotByAlien(AlienBullet ab)
 	{
 		if (ab.xPoints[0] >= xPoints[1] && ab.xPoints[0] <= xPoints[2] || ab.xPoints[2] >= xPoints[1] && ab.xPoints[2] <= xPoints[2])
@@ -85,7 +61,7 @@ public class Ship
 		}
 	}
 	
-	public void update(AlienBullet ab)
+	public void update()
 	{
 		if (keyLeftPressed)
 		{
@@ -97,25 +73,13 @@ public class Ship
 		}
 		if (spacebarPressed)
 		{
-			fireShipBullet();
-		}
-		if (sb != null)
-		{
-			sb.update();
-		}
-		
-		if (ab != null)
-		{
-		shotByAlien(ab);
+			Game game = new Game();
+			game.fireShipBullet();
 		}
 	}
 	
 	public void paint(Graphics g)
 	{
-		if (sb !=null)
-		{
-			sb.paint(g);
-		}
 		g.setColor(Color.RED);
 		g.fillPolygon(xPoints, yPoints, 3);
 	}
