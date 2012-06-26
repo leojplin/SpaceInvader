@@ -21,7 +21,7 @@ public class Aliens {
 		if(x + size >= 1000){
 			y += 15;
 			x -= 50;
-		}
+		}ddas
 	}
 	
 	public void speedAlien(){
