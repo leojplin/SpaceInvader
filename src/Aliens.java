@@ -20,6 +20,10 @@ public class Aliens extends GameComponent{
 		//}
 	//}
 	
+	public boolean getState(){
+		return state;
+	}
+	
 	public void moveAlien(boolean bool){
 		if(x + size >= 800 && state){
 			y += size;
@@ -46,11 +50,10 @@ public class Aliens extends GameComponent{
 	}
 	
 	public void draw(Graphics g){
-		g.setColor(Color.BLUE);
-		g.fillRect(this.x, this.y, this.size, this.size);
+
 	}
 	
 	public void update(int keyUp, int KeyDown){
-		//moveAlien(state);
+
 	}
 }
