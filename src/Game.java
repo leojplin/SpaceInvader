@@ -21,6 +21,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	Ship ship;
 	ShipBullet sb;
 	AlienBullet ab;
+	ShipBullet sb;
 	
 	
 	public void init()
@@ -60,6 +61,7 @@ public class Game extends Applet implements Runnable, KeyListener
 			}
 		}
 		ab = new AlienBullet(10,580);
+		sb = new ShipBullet(100,50);
 		ship = new Ship();
 		Thread t = new Thread(this);
 		t.start();
@@ -99,15 +101,35 @@ public class Game extends Applet implements Runnable, KeyListener
 			}
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
-				lowLevels[i].update();
+				if(lowLevels[i].getDX() == 0){
+					lowLevels[i] = null;
+				}
+				lowLevels[i].update(sb);
 			}
 			for(int i = 0; i < midLevels.length; i ++)
 			{
-				midLevels[i].update();
+				if(midLevels[i].getDX() == 0){
+					midLevels[i] = null;
+				}
+				midLevels[i].update(sb);
 			}
 			for(int i = 0; i < highLevels.length; i ++)
 			{
-				highLevels[i].update();
+				try{
+					if(highLevels[i].getDX() == 0){
+						highLevels[i] = null;
+					}
+					else{
+						highLevels[i].update(sb);
+					}
+				}
+				catch (NullPointerException pont){
+						continue;
+					
+				}
+					
+				
+				
 			}
 			spec.update();
 			repaint();
@@ -189,7 +211,11 @@ public class Game extends Applet implements Runnable, KeyListener
 		}
 		for(int i = 0; i < highLevels.length; i ++)
 		{
-			highLevels[i].paint(g);
+			if(highLevels[i] != null){
+				highLevels[i].paint(g);
+			}
+			continue;
+			
 		}
 		spec.paint(g);
 
