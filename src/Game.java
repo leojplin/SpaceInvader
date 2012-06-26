@@ -32,6 +32,8 @@ public class Game extends Applet implements Runnable, KeyListener
 			{
 				gc.update(keyDown,keyUp);
 			}
+			keyDown = 0;
+			keyUp = 0;
 			repaint();
 			
 			try
