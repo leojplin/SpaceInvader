@@ -54,7 +54,22 @@ public class Ship
 	{
 		if (spacebarPressed)
 		{
+			if (!(sb != null))
+			{
 			sb = new ShipBullet(xPoints[0], yPoints[0]);
+			}
+			checkShipBullet();
+		}
+	}
+	
+	public void checkShipBullet()
+	{
+		if (sb !=null)
+		{
+			if (sb.yPoints[1] < 0 )
+			{
+				sb = null;
+			}
 		}
 	}
 	

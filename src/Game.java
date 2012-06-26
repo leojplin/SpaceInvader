@@ -135,7 +135,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		{
 		ship.paint(g);
 		}
-		ab.paint(g);
+			ab.paint(g);
 		for(int i = 0; i < lowLevels.length; i ++)
 		{
 			lowLevels[i].paint(g);
