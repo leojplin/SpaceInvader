@@ -1,10 +1,14 @@
-public class Aliens {
+import java.awt.Color;
+import java.awt.Graphics;
+
+public class Aliens extends GameComponent{
 
 	private int x;
 	private int y;
-	private int size = 10;
+	private int size = 25;
 	private int[] where = {x, y};
 	private int dx = 1;
+	private boolean state = true;
 	
 	public Aliens(){
 		
@@ -16,15 +20,37 @@ public class Aliens {
 		//}
 	//}
 	
-	public void moveAlien(){
-		x += dx;
-		if(x + size >= 1000){
-			y += 15;
-			x -= 50;
+	public void moveAlien(boolean bool){
+		if(x + size >= 800 && state){
+			y += size;
+			state = false;
+		}
+		if(x <= 0 && !(state)){
+			y += size;
+			state = true;
+		}
+		if (!(state)){
+			x -= dx;
+		}
+		if (state){
+			x += dx;
 		}
 	}
 	
 	public void speedAlien(){
-		dx = (int) Math.pow(2, y % 15);
+		this.dx = (int) Math.pow(1.5, y / size);
+	}
+	
+	public int getSize(){
+		return size;
+	}
+	
+	public void draw(Graphics g){
+		g.setColor(Color.BLUE);
+		g.fillRect(this.x, this.y, this.size, this.size);
+	}
+	
+	public void update(int keyUp, int KeyDown){
+		//moveAlien(state);
 	}
 }
