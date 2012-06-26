@@ -17,6 +17,8 @@ public class Game extends Applet implements Runnable, KeyListener
 	int height;
 	boolean keyLeft = false;
 	boolean keyRight = false;
+	int keyDown;
+	int keyUp;
 	
 	
 	public void run()
@@ -26,8 +28,10 @@ public class Game extends Applet implements Runnable, KeyListener
 			
 			for(GameComponent gc : GameComponent.componentList)
 			{
-				gc.update();
+				gc.update(keyDown,keyUp);
 			}
+			keyDown = 0;
+			keyUp = 0;
 			repaint();
 			
 			try
@@ -44,6 +48,8 @@ public class Game extends Applet implements Runnable, KeyListener
 		addKeyListener(this);
 		width = 800;
 		height = 600;
+		keyDown = 0;
+		keyUp = 0;
 		gr = new GameRunner();
 		this.setSize(width, height);
 		dbImage = createImage(this.getWidth(), this.getHeight());
@@ -76,27 +82,14 @@ public class Game extends Applet implements Runnable, KeyListener
 	public void keyPressed(KeyEvent e) 
 	{
 
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-		{
-			keyLeft = true;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-		{
-			keyRight = true;
-		}
+		keyDown = e.getKeyCode();
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-		{
-			keyLeft = false;
-		}
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-		{
-			keyRight = false;
-		}
+		keyUp = e.getKeyCode();
+		
 
 	}
 

@@ -59,15 +59,15 @@ public class Ship extends GameComponent
 //		}
 //	}
 //	
-	public void update()
+	public void update(int keyDown, int keyUp)
 	{
-		if (keyLeft)
-		{
+		switch(keyDown){
+		case KeyEvent.VK_LEFT:
 			moveLeft();
-		}
-		if (keyRight)
-		{
+			break;
+		case KeyEvent.VK_RIGHT:
 			moveRight();
+			break;
 		}
 //		killedByAlien();
 		System.out.println("keyLeft is:" + keyLeft + "; keyRight is:" + keyRight);
