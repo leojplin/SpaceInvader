@@ -12,7 +12,7 @@ public class GameRunner
 		for(int i = 0; i < lowLevels.length; i ++){
 			lowLevels[i] = new lowLevel(x,y);
 			x += 50;
-			if(x >= 100){
+			if(x >= 250){
 				x = 0;
 				y += 50;
 			}
