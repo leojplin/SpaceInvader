@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+
+//TOMATOES ARE TOTALITARIAN NECROPHILIACS THAT FEAST ON THE BLOOD OF THE YOUTH.
+
 public class Aliens extends GameComponent{
 
 	private int x;
