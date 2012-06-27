@@ -61,7 +61,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		}
 		ab = new AlienBullet(10,580);
 		ship = new Ship();
-		sb = new ShipBullet(40,580);
+		sb = new ShipBullet(10000,2147482000);
 		Thread t = new Thread(this);
 		t.start();
 	}
@@ -71,32 +71,26 @@ public class Game extends Applet implements Runnable, KeyListener
 		while(true)
 		{
 			if (ship != null)
-			{
 				if (ship.isShipDead)
 				{
-					ship = null;
 					if (lives > 1)
 					{
-					lives--;
-					ship = new Ship();
+					lives--;			
+					ship.xPoints[0] = 400;
+					ship.xPoints[1] = 390;
+					ship.xPoints[2] = 410;
+					ship.isShipDead = false;
 					}
 					else
 					{
 						System.exit(0);
 					}
 				}
-			}
-			if (sb != null)
-			{
 				sb.update();
-			}
-			if (ship != null)
+				ship.update(this);
+			if (ab != null)
 			{
-				ship.update();
-				if (ab != null)
-				{
 					ship.shotByAlien(ab);
-				}
 			}
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
@@ -170,25 +164,14 @@ public class Game extends Applet implements Runnable, KeyListener
 		
 	}
 	
-	public void fireShipBullet() 
-	{ 
-
-	System. out .println( ship . xPoints [0] + ", " + ship . yPoints [0] + sb ); 
-	if (!( sb != null )) 
-	{ 
-		sb = new ShipBullet( ship . xPoints [0], ship . yPoints [0]); 
-	} 
-	checkShipBullet(); 
-	}
-		
 	public void checkShipBullet()
 	{
-		if (sb !=null)
+		if (sb.yPoints[1] < 0 )
 		{
-			if (sb.yPoints[1] < 0 )
-			{
-				sb = null;
-			}
+			sb.yPoints[0] = 2147483647;
+			sb.yPoints[1] = 2147483647;
+			sb.yPoints[2] = 2147483647;
+			sb.yPoints[3] = 2147483647;
 		}
 	}
 	
@@ -209,15 +192,9 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void paint(Graphics g) //Paints the graphic.
 	{
-		if (sb !=null)
-		{
-			sb.paint(g);
-		}
-		if (ship != null)
-		{
+		sb.paint(g);
 		ship.paint(g);
-		}
-			ab.paint(g);
+		ab.paint(g);
 		for(int i = 0; i < lowLevels.length; i ++)
 		{
 			if(lowLevels[i] != null){
@@ -250,40 +227,34 @@ public class Game extends Applet implements Runnable, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) 
 	{
-		if (ship != null)
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
-			if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			{
-				ship.keyLeftPressed = true;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			{
-				ship.keyRightPressed = true;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_SPACE)
-			{
-				ship.spacebarPressed = true;
-			}
+			ship.keyLeftPressed = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			ship.keyRightPressed = true;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			ship.spacebarPressed = true;
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
-	{		
-		if (ship != null)
+	{
+		if (e.getKeyCode() == KeyEvent.VK_LEFT)
 		{
-			if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			{
-				ship.keyLeftPressed = false;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			{
-			ship.keyRightPressed = false;
-			}
-			if (e.getKeyCode() == KeyEvent.VK_SPACE)
-			{
-				ship.spacebarPressed = false;
-			}
+			ship.keyLeftPressed = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+		ship.keyRightPressed = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE)
+		{
+			ship.spacebarPressed = false;
 		}
 	}
 

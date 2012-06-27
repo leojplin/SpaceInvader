@@ -11,6 +11,7 @@ public class Ship
 	boolean keyRightPressed = false;
 	boolean spacebarPressed = false;
 	boolean isShipDead = false;
+	Game game = new Game();
 	
 	public Ship() 
 	{
@@ -49,6 +50,16 @@ public class Ship
 		}
 	}
 	
+	public void fireShipBullet(Game game)
+	{
+		if (game.sb.yPoints[0] > 600)
+			{
+				game.sb = new ShipBullet(xPoints[0], yPoints[0]);
+			}
+			game.checkShipBullet();
+	}
+	
+	
 	public void shotByAlien(AlienBullet ab)
 	{
 		if (ab.xPoints[0] >= xPoints[1] && ab.xPoints[0] <= xPoints[2] || ab.xPoints[2] >= xPoints[1] && ab.xPoints[2] <= xPoints[2])
@@ -61,7 +72,7 @@ public class Ship
 		}
 	}
 	
-	public void update()
+	public void update(Game game)
 	{
 		if (keyLeftPressed)
 		{
@@ -73,8 +84,7 @@ public class Ship
 		}
 		if (spacebarPressed)
 		{
-			Game game = new Game();
-			game.fireShipBullet();
+			fireShipBullet(game);
 		}
 	}
 	
