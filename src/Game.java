@@ -97,6 +97,10 @@ public class Game extends Applet implements Runnable, KeyListener
 				try{
 					if((lowLevels[i].getLife())){
 						lowLevels[i] = null;
+						sb.yPoints[0] = 2147483647;
+						sb.yPoints[1] = 2147483647;
+						sb.yPoints[2] = 2147483647;
+						sb.yPoints[3] = 2147483647;
 					}
 					else{
 						lowLevels[i].update(sb);
@@ -112,6 +116,10 @@ public class Game extends Applet implements Runnable, KeyListener
 				try{
 					if((midLevels[i].getLife())){
 						midLevels[i] = null;
+						sb.yPoints[0] = 2147483647;
+						sb.yPoints[1] = 2147483647;
+						sb.yPoints[2] = 2147483647;
+						sb.yPoints[3] = 2147483647;
 					}
 					else{
 						midLevels[i].update(sb);
@@ -127,6 +135,10 @@ public class Game extends Applet implements Runnable, KeyListener
 				try{
 					if((highLevels[i].getLife())){
 						highLevels[i] = null;
+						sb.yPoints[0] = 2147483647;
+						sb.yPoints[1] = 2147483647;
+						sb.yPoints[2] = 2147483647;
+						sb.yPoints[3] = 2147483647;
 					}
 					else{
 						highLevels[i].update(sb);
@@ -143,6 +155,10 @@ public class Game extends Applet implements Runnable, KeyListener
 			try{
 				if(spec.getLife()){
 					spec = null;
+					sb.yPoints[0] = 2147483647;
+					sb.yPoints[1] = 2147483647;
+					sb.yPoints[2] = 2147483647;
+					sb.yPoints[3] = 2147483647;
 				}
 				else{
 					spec.update(sb);
