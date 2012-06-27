@@ -113,11 +113,11 @@ public class Game extends Applet implements Runnable, KeyListener
 							int chance = randomizer.nextInt(lowLevels.length);
 							abs[i] = alienFire(lowLevels[i], abs[i]);
 						}
-						for(int j = 0; j < abs.length; j ++){
-							if(abs[j] != null){
-								abs[j].update();
-							}
-						}
+						//for(int j = 0; j < 10; j ++){
+						//	if(abs[j] != null){
+						//		abs[j].update();
+						//	}
+						//}
 					}
 				}
 				catch (NullPointerException pont){
@@ -142,11 +142,11 @@ public class Game extends Applet implements Runnable, KeyListener
 							int chance = randomizer.nextInt(midLevels.length);
 							abs[i + 10] = alienFire(midLevels[i], abs[i + 10]);
 						}
-						for(int j = 10; j < abs.length; j ++){
-							if(abs[j] != null){
-								abs[j].update();
-							}
-						}
+						//for(int j = 10; j < 20; j ++){
+						//	if(abs[j] != null){
+						//		abs[j].update();
+						//	}
+						//}
 					}
 				}
 				catch (NullPointerException pont){
@@ -169,22 +169,29 @@ public class Game extends Applet implements Runnable, KeyListener
 						int toFire = randomizer.nextInt(1000);
 						if(toFire <= 5){
 							int chance = randomizer.nextInt(highLevels.length);
-							abs[i + 20] = alienFire(midLevels[i], abs[i + 20]);
+							abs[i + 20] = alienFire(highLevels[i], abs[i + 20]);
 						}
-						for(int j = 20; j < abs.length; j ++){
-							if(abs[j] != null){
-								abs[j].update();
-							}
-						}
+						//for(int j = 0; j < abs.length; j ++){
+						//	if(abs[j] != null){
+						//		abs[j].update();
+						//	}
+						//}
 					}
 				}
 				catch (NullPointerException pont){
 						continue;
 					
 				}
-					
-				
-				
+			}
+			for(int i = 0; i < abs.length; i ++){
+				try{
+					if(abs[i] != null){
+						abs[i].update();
+					}
+				}
+				catch(NullPointerException pont){
+					continue;
+				}
 			}
 			try{
 				if(spec.getLife()){
