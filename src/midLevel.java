@@ -20,16 +20,6 @@ public class midLevel extends Aliens{
 		isDead = false;
 	}
 	
-	public void goBoom(ShipBullet bullet){
-		for(int i = 0; i < bullet.xPoints.length; i ++){
-			if(bullet.xPoints[i] <= x + size && bullet.xPoints[i] >= x){
-				if(bullet.yPoints[i] <= y && bullet.yPoints[i] >= y + size){
-					isDead = true;
-				}
-			}
-		}
-	}
-	
 	
 	public void speedAlien(){
 		dx = Math.pow(1.0005, y / size);

@@ -19,17 +19,6 @@ public class highLevel extends Aliens{
 		dx = 1.0;
 	}
 	
-	public void goBoom(ShipBullet bullet){
-		for(int i : bullet.xPoints){
-			if(i >= x && i <= x + size){
-				for(int j : bullet.yPoints){
-					if(j >= y && j <= y + size){
-						isDead = true;
-					}
-				}
-			}
-		}
-	}
 	
 	public void speedAlien(){
 		dx = Math.pow(1.0005, y / size);

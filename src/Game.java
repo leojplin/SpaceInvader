@@ -140,7 +140,17 @@ public class Game extends Applet implements Runnable, KeyListener
 				
 				
 			}
-			spec.update();
+			try{
+				if(spec.getLife()){
+					spec = null;
+				}
+				else{
+					spec.update(sb);
+				}
+			}
+			catch (NullPointerException pont){
+					
+			}
 			repaint();
 			
 			try
@@ -219,8 +229,9 @@ public class Game extends Applet implements Runnable, KeyListener
 			continue;
 			
 		}
-		spec.paint(g);
-
+			if((spec != null)){
+				spec.paint(g);
+			}
 	}
 
 	

@@ -8,6 +8,7 @@ public class specialAlien extends Aliens{
 	private double dx;
 	private double size;
 	private boolean state;
+	private boolean isDead;
 	
 	public specialAlien(int x_axis, int y_axis){
 		x = x_axis;
@@ -15,6 +16,7 @@ public class specialAlien extends Aliens{
 		dx = 2.0;
 		size = 25;
 		state = true;
+		isDead = false;
 	}
 	
 	public void moveAlien(){
@@ -31,8 +33,15 @@ public class specialAlien extends Aliens{
 			state = true;
 		}
 	}
-	public void update(){
+	public boolean getLife(){
+		return isDead;
+	}
+	
+	public void update(ShipBullet bullet){
 		moveAlien();
+		if(bullet != null){
+			isDead = goBoom(bullet, isDead, x, y, size);
+		}
 	}
 	public void paint(Graphics g){
 		g.setColor(Color.BLACK);
