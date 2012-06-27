@@ -307,6 +307,9 @@ public class Game extends Applet implements Runnable, KeyListener
 			abr = new AlienBullet((int) (low.x + (.5 * low.size)), (int) (low.y + low.size));
 		}else{
 			abr = oldAB;
+			if(abr.yPoints[0] >= 600){
+				abr = null;
+			}
 		}
 		return abr;
 	}
