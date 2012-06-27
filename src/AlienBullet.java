@@ -20,7 +20,7 @@ public class AlienBullet
 {
 	int bulletWidth = 2;
 	int bulletLength = 15;
-	int bulletSpeed = 5;
+	int bulletSpeed = 1;
 	int[] xPoints = new int[4];
 	int[] yPoints = new int[4];
 	

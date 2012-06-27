@@ -38,10 +38,6 @@ public class lowLevel extends Aliens{
 	
 	public void update(ShipBullet bullet, Game game){
 		
-		int shoots = randomizer.nextInt(900000000);
-		if(shoots < 900000000){
-			//Alien fire method.
-		}
 		double[] data = moveAlien(x,y,size,state,dx);
 		x = data[0];
 		y = data[1];

@@ -108,9 +108,16 @@ public class Game extends Applet implements Runnable, KeyListener
 					}
 					else{
 						lowLevels[i].update(sb, this);
-						int chance = randomizer.nextInt(lowLevels.length);
-						abs[chance] = alienFire(lowLevels[chance], abs[chance]);
-						abs[chance].update();
+						int toFire = randomizer.nextInt(1000);
+						if(toFire <= 5){
+							int chance = randomizer.nextInt(lowLevels.length);
+							abs[i] = alienFire(lowLevels[i], abs[i]);
+						}
+						for(int j = 0; j < abs.length; j ++){
+							if(abs[j] != null){
+								abs[j].update();
+							}
+						}
 					}
 				}
 				catch (NullPointerException pont){
