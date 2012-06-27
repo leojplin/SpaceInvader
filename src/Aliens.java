@@ -2,6 +2,8 @@ import java.awt.Graphics;
 
 public class Aliens{
 	
+	AlienBullet ab;
+	
 	int points;
 	int x;
 	int y;

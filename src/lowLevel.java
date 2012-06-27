@@ -5,12 +5,13 @@ import java.util.Random;
 public class lowLevel extends Aliens{
 	
 	private int points;
-	private double x;
-	private double y;
-	private double size;
+	double x;
+	double y;
+	double size;
 	private double state;
 	private double dx;
 	private boolean isDead;
+	private Random randomizer;
 	
 	public lowLevel(int x_axis, int y_axis){
 		points = 50;
@@ -20,6 +21,7 @@ public class lowLevel extends Aliens{
 		state = 1;
 		dx = 1.0;
 		isDead = false;
+		randomizer = new Random();
 	}
 	
 	
@@ -30,9 +32,16 @@ public class lowLevel extends Aliens{
 	public boolean getLife(){
 		return isDead;
 	}
+	
+
 
 	
-	public void update(ShipBullet bullet){
+	public void update(ShipBullet bullet, Game game){
+		
+		int shoots = randomizer.nextInt(900000000);
+		if(shoots < 900000000){
+			//Alien fire method.
+		}
 		double[] data = moveAlien(x,y,size,state,dx);
 		x = data[0];
 		y = data[1];

@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 
 
@@ -19,8 +20,9 @@ public class Game extends Applet implements Runnable, KeyListener
 	private Image i;
 	private Graphics doubleG;
 	Ship ship;
-	AlienBullet ab;
+	AlienBullet[] abs = new AlienBullet[10];
 	ShipBullet sb;
+	Random randomizer = new Random();
 	
 	
 	public void init()
@@ -59,7 +61,6 @@ public class Game extends Applet implements Runnable, KeyListener
 				y += 50;
 			}
 		}
-		ab = new AlienBullet(10,580);
 		ship = new Ship();
 		sb = new ShipBullet(10000,2147482000);
 		Thread t = new Thread(this);
@@ -88,10 +89,13 @@ public class Game extends Applet implements Runnable, KeyListener
 				}
 				sb.update();
 				ship.update(this);
-			if (ab != null)
-			{
-					ship.shotByAlien(ab);
+			for(int i = 0; i < abs.length; i ++){
+				if (abs[i] != null)
+				{
+						ship.shotByAlien(abs[i]);
+				}
 			}
+			
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
 				try{
@@ -103,7 +107,10 @@ public class Game extends Applet implements Runnable, KeyListener
 						sb.yPoints[3] = 2147483647;
 					}
 					else{
-						lowLevels[i].update(sb);
+						lowLevels[i].update(sb, this);
+						int chance = randomizer.nextInt(lowLevels.length);
+						abs[chance] = alienFire(lowLevels[chance], abs[chance]);
+						abs[chance].update();
 					}
 				}
 				catch (NullPointerException pont){
@@ -220,7 +227,11 @@ public class Game extends Applet implements Runnable, KeyListener
 	{
 		sb.paint(g);
 		ship.paint(g);
-		ab.paint(g);
+		for(int i = 0; i < abs.length; i++){
+			if(abs[i] != null){
+				abs[i].paint(g);
+			}
+		}
 		for(int i = 0; i < lowLevels.length; i ++)
 		{
 			if(lowLevels[i] != null){
@@ -289,5 +300,14 @@ public class Game extends Applet implements Runnable, KeyListener
 	public void keyTyped(KeyEvent e)
 	{
 		
+	}
+	public AlienBullet alienFire(lowLevel low, AlienBullet oldAB){
+		AlienBullet abr;
+		if(oldAB == null){
+			abr = new AlienBullet((int) (low.x + (.5 * low.size)), (int) (low.y + low.size));
+		}else{
+			abr = oldAB;
+		}
+		return abr;
 	}
 }
