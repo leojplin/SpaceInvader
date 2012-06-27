@@ -42,6 +42,8 @@ public class midLevel extends Aliens{
 		if(bullet != null){
 			isDead = goBoom(bullet, isDead, x, y, size);
 		}
+		this.setX(x);
+		this.setY(y);
 	}
 	
 	public void paint(Graphics g){

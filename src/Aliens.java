@@ -5,13 +5,21 @@ public class Aliens{
 	AlienBullet ab;
 	
 	int points;
-	int x;
-	int y;
+	double x;
+	double y;
 	int size;
 	int dx;
 	
 	public Aliens(){
 		
+	}
+	
+	public void setX(double xNew){
+		x = xNew;
+	}
+	
+	public void setY(double yNew){
+		y = yNew;
 	}
 	
 	public double[] moveAlien(double x_pos, double y_pos, double big, double toRight, double x_vel){

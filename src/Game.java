@@ -20,7 +20,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	private Image i;
 	private Graphics doubleG;
 	Ship ship;
-	AlienBullet[] abs = new AlienBullet[10];
+	AlienBullet[] abs = new AlienBullet[25];
 	ShipBullet sb;
 	Random randomizer = new Random();
 	
@@ -137,6 +137,16 @@ public class Game extends Applet implements Runnable, KeyListener
 					}
 					else{
 						midLevels[i].update(sb);
+						int toFire = randomizer.nextInt(1000);
+						if(toFire <= 5){
+							int chance = randomizer.nextInt(midLevels.length);
+							abs[i + 10] = alienFire(midLevels[i], abs[i + 10]);
+						}
+						for(int j = 10; j < abs.length; j ++){
+							if(abs[j] != null){
+								abs[j].update();
+							}
+						}
 					}
 				}
 				catch (NullPointerException pont){
@@ -156,6 +166,16 @@ public class Game extends Applet implements Runnable, KeyListener
 					}
 					else{
 						highLevels[i].update(sb);
+						int toFire = randomizer.nextInt(1000);
+						if(toFire <= 5){
+							int chance = randomizer.nextInt(highLevels.length);
+							abs[i + 20] = alienFire(midLevels[i], abs[i + 20]);
+						}
+						for(int j = 20; j < abs.length; j ++){
+							if(abs[j] != null){
+								abs[j].update();
+							}
+						}
 					}
 				}
 				catch (NullPointerException pont){
@@ -308,10 +328,10 @@ public class Game extends Applet implements Runnable, KeyListener
 	{
 		
 	}
-	public AlienBullet alienFire(lowLevel low, AlienBullet oldAB){
+	public AlienBullet alienFire(Aliens alien, AlienBullet oldAB){
 		AlienBullet abr;
 		if(oldAB == null){
-			abr = new AlienBullet((int) (low.x + (.5 * low.size)), (int) (low.y + low.size));
+			abr = new AlienBullet((int) (alien.x + (.5 * alien.size)), (int) (alien.y + alien.size));
 		}else{
 			abr = oldAB;
 			if(abr.yPoints[0] >= 600){

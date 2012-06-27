@@ -22,6 +22,8 @@ public class lowLevel extends Aliens{
 		dx = 1.0;
 		isDead = false;
 		randomizer = new Random();
+		this.setX(x);
+		this.setY(y);
 	}
 	
 	
@@ -46,6 +48,8 @@ public class lowLevel extends Aliens{
 		if(bullet != null){
 			isDead = goBoom(bullet, isDead, x, y, size);
 		}
+		this.setX(x);
+		this.setY(y);
 	}
 	
 	public void paint(Graphics g){
