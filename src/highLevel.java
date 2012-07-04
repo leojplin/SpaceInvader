@@ -19,9 +19,13 @@ public class highLevel extends Aliens{
 		dx = 1.0;
 	}
 	
-	
-	public void speedAlien(){
-		dx = Math.pow(1.0005, y / size);
+	public highLevel(int x_axis, int y_axis, int deltax){
+		points = 100;
+		x = x_axis;
+		y = y_axis;
+		size = 25;
+		state = 1;
+		dx = 1.0 + deltax;
 	}
 	
 	public double getDX(){
@@ -37,7 +41,6 @@ public class highLevel extends Aliens{
 		x = data[0];
 		y = data[1];
 		state = data[2];
-		speedAlien();
 		if(bullet != null){
 			isDead = goBoom(bullet, isDead, x, y, size);
 		}
@@ -46,7 +49,7 @@ public class highLevel extends Aliens{
 	}
 	
 	public void paint(Graphics g){
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.PINK);
 		g.fillRect((int)x, (int)y, (int)size, (int)size);
 	}
 }

@@ -26,9 +26,13 @@ public class lowLevel extends Aliens{
 		this.setY(y);
 	}
 	
-	
-	public void speedAlien(){
-		dx = Math.pow(1.0005, y / size);
+	public lowLevel(int x_axis, int y_axis, int deltax){
+		points = 100;
+		x = x_axis;
+		y = y_axis;
+		size = 25;
+		state = 1;
+		dx = 1.0 + deltax;
 	}
 	
 	public boolean getLife(){
@@ -44,7 +48,6 @@ public class lowLevel extends Aliens{
 		x = data[0];
 		y = data[1];
 		state = data[2];
-		speedAlien();
 		if(bullet != null){
 			isDead = goBoom(bullet, isDead, x, y, size);
 		}
@@ -53,7 +56,7 @@ public class lowLevel extends Aliens{
 	}
 	
 	public void paint(Graphics g){
-		g.setColor(Color.BLUE);
+		g.setColor(Color.CYAN);
 		g.fillRect((int)x, (int)y, (int)size, (int)size);
 	}
 }

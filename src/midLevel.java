@@ -20,9 +20,13 @@ public class midLevel extends Aliens{
 		isDead = false;
 	}
 	
-	
-	public void speedAlien(){
-		dx = Math.pow(1.0005, y / size);
+	public midLevel(int x_axis, int y_axis, int deltax){
+		points = 100;
+		x = x_axis;
+		y = y_axis;
+		size = 25;
+		state = 1;
+		dx = 1.0 + deltax;
 	}
 	
 	public double getDX(){
@@ -38,7 +42,6 @@ public class midLevel extends Aliens{
 		x = data[0];
 		y = data[1];
 		state = data[2];
-		speedAlien();
 		if(bullet != null){
 			isDead = goBoom(bullet, isDead, x, y, size);
 		}

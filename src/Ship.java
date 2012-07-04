@@ -6,7 +6,7 @@ public class Ship
 {
 	int[] xPoints = {400, 390, 410};
 	int[] yPoints = {555, 580, 580};
-	final int lateralSpeed = 25;
+	final int lateralSpeed = 10;
 	boolean keyLeftPressed = false;
 	boolean keyRightPressed = false;
 	boolean spacebarPressed = false;
@@ -55,6 +55,7 @@ public class Ship
 		if (game.sb.yPoints[0] > 600)
 			{
 				game.sb = new ShipBullet(xPoints[0], yPoints[0]);
+				game.shipFireClip.play();
 			}
 			game.checkShipBullet();
 	}
@@ -66,8 +67,7 @@ public class Ship
 		{
 			if (ab.yPoints[0] >= yPoints[0] && ab.yPoints[0] <= yPoints[1] || ab.yPoints[1] >= yPoints[0] && ab.yPoints[1] <= yPoints[1])
 			{
-				isShipDead = true; //method to destroy
-				//method to lose one life
+				isShipDead = true;
 			}
 		}
 	}

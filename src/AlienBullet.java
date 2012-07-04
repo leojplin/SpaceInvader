@@ -1,26 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-//IMPORTANT:
-//	*add "AlienBullet ab;" to Alien class
-//	*add 		
-//	"if (ab != null)
-//	{
-//		ab.update();
-//	}" to Alien class's update method.
-//	*add "ab = new AlienBullet(x, y);" to Alien's shoot/fire method.
-//		-note: first int parameter is the x-midpoint of the alien that shoots. second int parameter is the most bottom y-value of the alien that shoots.
-//	*add 	
-//	"if (ab !=null)
-//	{
-//		ab.paint(g);
-//	}" to Alien class's paint method.
-
 public class AlienBullet 
 {
 	int bulletWidth = 2;
 	int bulletLength = 15;
-	int bulletSpeed = 1;
+	final int bulletSpeed = 6;
 	int[] xPoints = new int[4];
 	int[] yPoints = new int[4];
 	
