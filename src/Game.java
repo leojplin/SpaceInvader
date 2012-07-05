@@ -25,7 +25,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	private Graphics doubleG;
 	Ship ship;
 	AlienBullet[] abs = new AlienBullet[25];
-	AlienBullet specialab = null;
+	AlienBullet[] specialabs = new AlienBullet[3];
 	ShipBullet sb;
 	Random randomizer = new Random();
 	int rainbowColors = 0;
@@ -33,7 +33,6 @@ public class Game extends Applet implements Runnable, KeyListener
 	int counterForMidPoints = 0;
 	int counterForHighPoints = 0;
 	int counterForSpecPoints = 0;
-//	int counterForUpgrades = 0;
 	int points = 0;
 	int level = 1;
 	int pointsToCheckNewLevel = 1;
@@ -112,6 +111,8 @@ public class Game extends Applet implements Runnable, KeyListener
 		while(true)
 		{
 			if (ship != null)
+				if (lives <= 0)
+				System.exit(0);
 				if (ship.isShipDead)
 				{
 					if (lives > 1)
@@ -136,21 +137,43 @@ public class Game extends Applet implements Runnable, KeyListener
 				}
 			}
 			
+			for (int i = 0; i < specialabs.length; i++)
+			{
+				if (specialabs[i] != null)
+				{
+					ship.shotByAlien(specialabs[i]);
+				}
+			}
 			for(int i = 0; i < lowLevels.length; i ++)
 			{
 				try{
-					if((lowLevels[i].getLife())){
+					if((lowLevels[i].getLife()))
+					{
 						lowLevels[i] = null;
 						sb.yPoints[0] = 2147483647;
 						sb.yPoints[1] = 2147483647;
 						sb.yPoints[2] = 2147483647;
 						sb.yPoints[3] = 2147483647;
 					}
-					else{
-						lowLevels[i].update(sb, this);
-						int toFire = randomizer.nextInt(1000);
-						if(toFire <= 5 + increaseFireRate){
-							abs[i] = alienFire(lowLevels[i], abs[i]);
+					else
+					{
+						if (lowLevels[i].y >= 600)
+						{
+							lowLevels[i] = null;
+							sb.yPoints[0] = 2147483647;
+							sb.yPoints[1] = 2147483647;
+							sb.yPoints[2] = 2147483647;
+							sb.yPoints[3] = 2147483647;
+							lives--;
+						}
+						else
+						{
+							lowLevels[i].update(sb, this);
+							int toFire = randomizer.nextInt(10000);
+							if(toFire <= 5 + increaseFireRate)
+							{
+								abs[i] = alienFire(lowLevels[i], abs[i]);
+							}
 						}
 					}
 				}
@@ -173,13 +196,25 @@ public class Game extends Applet implements Runnable, KeyListener
 						sb.yPoints[2] = 2147483647;
 						sb.yPoints[3] = 2147483647;
 					}
+					else
+					{
+						if (midLevels[i].y >600)
+						{
+							midLevels[i] = null;
+							sb.yPoints[0] = 2147483647;
+							sb.yPoints[1] = 2147483647;
+							sb.yPoints[2] = 2147483647;
+							sb.yPoints[3] = 2147483647;
+							lives--;
+						}
 					else{
 						midLevels[i].update(sb);
-						int toFire = randomizer.nextInt(1000);
+						int toFire = randomizer.nextInt(10000);
 						if(toFire <= 5 + increaseFireRate){
 							abs[i + 10] = alienFire(midLevels[i], abs[i + 10]);
 						}
 					}
+				}
 				}
 				catch (NullPointerException pont){
 						continue;
@@ -200,13 +235,25 @@ public class Game extends Applet implements Runnable, KeyListener
 						sb.yPoints[2] = 2147483647;
 						sb.yPoints[3] = 2147483647;
 					}
+					else
+					{
+						if (highLevels[i].y >600)
+						{
+							highLevels[i] = null;
+							sb.yPoints[0] = 2147483647;
+							sb.yPoints[1] = 2147483647;
+							sb.yPoints[2] = 2147483647;
+							sb.yPoints[3] = 2147483647;
+							lives--;
+						}
 					else{
 						highLevels[i].update(sb);
-						int toFire = randomizer.nextInt(1000);
+						int toFire = randomizer.nextInt(10000);
 						if(toFire <= 5 + increaseFireRate){
 							abs[i + 20] = alienFire(highLevels[i], abs[i + 20]);
 						}
 					}
+				}
 				}
 				catch (NullPointerException pont){
 						continue;
@@ -235,24 +282,36 @@ public class Game extends Applet implements Runnable, KeyListener
 			catch (NullPointerException pont){
 					
 			}
-			if (specialab != null)
+			for (int i = 0; i < specialabs.length; i++)
 			{
-				if (specialab.yPoints[0] > 600)
+			if (specialabs[i] != null)
+			{
+				if (specialabs[i].yPoints[0] > 600)
 				{
-					specialab = null;
+					specialabs[i] = null;
 				}
 			}
-			if (specialab == null)
-			{
-				specialab = new AlienBullet((int)(spec.x + 0.5 * spec.size),(int) (spec.y + spec.size));
+			if (specialabs[i] == null)
+			{					
+				int toFire = randomizer.nextInt(10000);
+				if	(toFire <= 5 + increaseFireRate)
+				{
+				specialabs[i] = new AlienBullet((int)(spec.x + 0.5 * spec.size),(int) (spec.y + spec.size));
 				alienFireClip.play();
+				}
+
+			}
+			if (specialabs[i] !=null)
+			{
+				specialabs[i].update();
+			}
 			}
 			if (spec == null)
 			{
 				counterForSpecPoints++;
 				spec = new specialAlien(10000000,10000000);
 			}
-			points = 50*counterForLowPoints + 100*counterForMidPoints + 200*counterForHighPoints + 500*counterForSpecPoints;// - 5000*counterForUpgrades;
+			points = 50*counterForLowPoints + 100*counterForMidPoints + 200*counterForHighPoints + 500*counterForSpecPoints;
 			for(int i = 0; i < abs.length; i ++){
 				try{
 					if(abs[i] != null){
@@ -262,10 +321,6 @@ public class Game extends Applet implements Runnable, KeyListener
 				catch(NullPointerException pont){
 					continue;
 				}
-			}
-			if (specialab !=null)
-			{
-				specialab.update();
 			}
 			
 
@@ -290,7 +345,7 @@ public class Game extends Applet implements Runnable, KeyListener
 			repaint();
 			try
 			{
-				Thread.sleep(19);
+				Thread.sleep(17);
 			}
 			catch (InterruptedException e){}
 		}
@@ -311,7 +366,7 @@ public class Game extends Applet implements Runnable, KeyListener
 	
 	public void checkShipBullet()
 	{
-		if (sb.yPoints[1] < 0 )
+		if (sb.yPoints[0] < 0 )
 		{
 			sb.yPoints[0] = 2147483647;
 			sb.yPoints[1] = 2147483647;
@@ -375,12 +430,15 @@ public class Game extends Applet implements Runnable, KeyListener
 		Font font = new Font("newFont", Font.BOLD, 12);
 		g.setFont(font);
 		g.drawString("Level: " + Integer.toString(level), 376, 595);
-		g.drawString("Points: " + Integer.toString(points),720,595);
-		g.drawString("Lives: " + Integer.toString(lives), 5, 595);
+		g.drawString("Points: " + Integer.toString(points),715,595);
+		g.drawString("Lives: " + Integer.toString(lives), 4, 595);
 		font = new Font("newFont", Font.TRUETYPE_FONT, 10);
 		g.setFont(font);
-		g.drawString("Alien Fire Rate: " + Double.toString((double)(5+increaseFireRate)/(double)(10)) + "%", 5, 15);
+		g.drawString("Alien Firing Chance Per Second: " + Double.toString((double)(5+increaseFireRate)*(double)60/(double)(100)) + "%", 5, 15);
 		g.drawString("Alien Movement Speed: " + Integer.toString(1 + increaseSpeed), 5, 30);
+		font = new Font("newFont", Font.ITALIC, 9);
+		g.setFont(font);
+		g.drawString("Created by Steven Chen, JiaPei Lin, and Jason Tan", 580 , 15);
 		sb.paint(g);
 		ship.paint(g);
 		for(int i = 0; i < abs.length; i++){
@@ -388,9 +446,12 @@ public class Game extends Applet implements Runnable, KeyListener
 				abs[i].paint(g);
 			}
 		}
-		if (specialab != null)
+		for (int i = 0; i< specialabs.length; i++)
 		{
-			specialab.paint(g);
+		if (specialabs[i] != null)
+		{
+			specialabs[i].paint(g);
+		}
 		}
 		for(int i = 0; i < lowLevels.length; i ++)
 		{
@@ -517,24 +578,3 @@ public class Game extends Applet implements Runnable, KeyListener
 		}
 	}
 }
-//	public void purchaseBulletUpgrade()
-//	{
-//		if (points >= 5000)
-//		{
-//			points -= 5000;
-//			counterForUpgrades++;
-//			increaseBulletSize++;
-//		}
-//	}
-//	
-//	public void purchaseLife()
-//	{
-//		if (points >= 5000)
-//		{
-//			points -= 5000;
-//			counterForUpgrades++;
-//			lives++;
-//		}
-//		
-//	}
-//}

@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class midLevel extends Aliens{
 	private int points;
 	private double x;
-	private double y;
+	double y;
 	private double size;
 	private double state;
 	private double dx;
