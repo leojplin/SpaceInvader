@@ -29,22 +29,10 @@ public class Game extends Applet implements Runnable, KeyListener
 	ShipBullet sb;
 	Random randomizer = new Random();
 	int rainbowColors = 0;
-	int counterForLowPoints = 0;
-	int counterForMidPoints = 0;
-	int counterForHighPoints = 0;
-	int counterForSpecPoints = 0;
-	int points = 0;
-	int level = 1;
-	int pointsToCheckNewLevel = 1;
-	int checkNewLevelIncrease = 1;
-	int checkIfSurvivalLevel = 1;
-	int increaseSpeed = 0;
-	int increaseFireRate = 0;
-	int increaseBulletSize = 0;
+	int counterForLowPoints = 0, counterForMidPoints = 0, counterForHighPoints = 0, counterForSpecPoints = 0;
+	int points = 0, level = 1, pointsToCheckNewLevel = 1, checkNewLevelIncrease = 1, increaseSpeed = 0, increaseFireRate =0;
 	URL url;
-	static AudioClip shipFireClip;
-	static AudioClip alienFireClip;
-	static AudioClip backgroundMusic;
+	static AudioClip shipFireClip, alienFireClip, backgroundMusic;
 	
 	public void loadAudioClips(Game game)
 	{
@@ -548,7 +536,7 @@ public class Game extends Applet implements Runnable, KeyListener
 		midLevels = new midLevel[10];
 		highLevels = new highLevel[5];
 		abs = new AlienBullet[25];
-		sb = new ShipBullet(10000,2147482000, increaseBulletSize);
+		sb = new ShipBullet(10000, 2147482000);
 		spec = new specialAlien(50,0, increaseSpeed);
 		int x = 0;
 		int y = 50;
