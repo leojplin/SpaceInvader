@@ -11,7 +11,7 @@ public class Ship
 	boolean keyRightPressed = false;
 	boolean spacebarPressed = false;
 	boolean isShipDead = false;
-	Game game = new Game();
+//	Game game = new Game();
 	
 	public Ship() 
 	{
@@ -55,7 +55,7 @@ public class Ship
 		if (game.sb.yPoints[0] > 600)
 			{
 				game.sb = new ShipBullet(xPoints[0], yPoints[0]);
-				game.shipFireClip.play();
+				game.shipFireClip.start();
 			}
 			game.checkShipBullet();
 	}
